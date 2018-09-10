@@ -21,7 +21,7 @@ import (
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
-	v1 "k8s.io/client-go/pkg/api/v1"
+	v1 "k8s.io/api/core/v1"
 )
 
 // DefaultNamespace is the Kubernetes default namespace.

@@ -7,7 +7,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/deis/pkg/prettyprint"
+	"github.com/teamhephy/pkg/prettyprint"
 )
 
 // Color is the representation of a color, to be used in Colorize
