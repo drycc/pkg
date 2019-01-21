@@ -185,7 +185,7 @@ func (me *Me) loadPod() (*v1.Pod, string, error) {
 //
 // The selector must be a label selector.
 func (me *Me) findPodInNamespaces(selector string) (*v1.Pod, string, error) {
-	// Get the deis namespace. If it does not exist, get the default namespce.
+	// Get the drycc namespace. If it does not exist, get the default namespce.
 	s, err := labels.Parse(selector)
 	if err == nil {
 		ns, err := me.c.CoreV1().Namespaces().List(metav1.ListOptions{LabelSelector: s.String()})

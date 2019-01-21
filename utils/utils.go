@@ -1,6 +1,6 @@
 package utils
 
-// this is code taken from the v2 branch of github.com/teamhephy/deis/tests/utils
+// this is code taken from the v2 branch of github.com/drycc/drycc/tests/utils
 
 import (
 	"bufio"

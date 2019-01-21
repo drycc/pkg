@@ -11,9 +11,9 @@ import (
 func TestGet(t *testing.T) {
 	reg, router, cxt := cookoo.Cookoo()
 
-	drink := "DEIS_DRINK_OF_CHOICE"
-	cookies := "DEIS_FAVORITE_COOKIES"
-	snack := "DEIS_SNACK_TIME"
+	drink := "DRYCC_DRINK_OF_CHOICE"
+	cookies := "DRYCC_FAVORITE_COOKIES"
+	snack := "DRYCC_SNACK_TIME"
 	snackVal := fmt.Sprintf("$%s and $%s cookies", drink, cookies)
 
 	// Set drink, but not cookies.
@@ -102,7 +102,7 @@ func TestGetInterpolation(t *testing.T) {
 		t.Error(err)
 	}
 
-	if os.Getenv("TEST_ENV2") != "deis" {
-		t.Errorf("Expected 'deis', got '%s'", os.Getenv("TEST_ENV2"))
+	if os.Getenv("TEST_ENV2") != "drycc" {
+		t.Errorf("Expected 'drycc', got '%s'", os.Getenv("TEST_ENV2"))
 	}
 }

@@ -172,7 +172,7 @@ func FindSSHUser(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Interr
 
 	k := client.NewKeysAPI(cli)
 
-	res, err := k.Get(dctx(), "/deis/builder/users", &client.GetOptions{Recursive: true})
+	res, err := k.Get(dctx(), "/drycc/builder/users", &client.GetOptions{Recursive: true})
 	if err != nil {
 		log.Warnf(c, "Error querying etcd: %s", err)
 		return "", err
@@ -209,7 +209,7 @@ func StoreHostKeys(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Inte
 	defaultCiphers := []string{"rsa", "dsa", "ecdsa", "ed25519"}
 	cli := p.Get("client", nil).(client.Client)
 	ciphers := p.Get("ciphers", defaultCiphers).([]string)
-	basepath := p.Get("basepath", "/deis/builder").(string)
+	basepath := p.Get("basepath", "/drycc/builder").(string)
 
 	k := client.NewKeysAPI(cli)
 	res, err := k.Get(dctx(), "sshHostKey", &client.GetOptions{})
@@ -408,8 +408,8 @@ func MakeDir(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Interrupt)
 // - path (string): The path to watch
 func Watch(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Interrupt) {
 
-	// etcdctl -C $ETCD watch --recursive /deis/services
-	path := p.Get("path", "/deis/services").(string)
+	// etcdctl -C $ETCD watch --recursive /drycc/services
+	path := p.Get("path", "/drycc/services").(string)
 	cli := p.Get("client", nil).(client.Client)
 	k := client.NewKeysAPI(cli)
 

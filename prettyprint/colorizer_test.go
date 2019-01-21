@@ -45,9 +45,9 @@ func ExampleColorizeVars() {
 	fmt.Println(out)
 }
 
-func TestDeisIfy(t *testing.T) {
-	d := DeisIfy("Test")
-	if strings.Contains(d, "Deis1") {
+func TestDryccIfy(t *testing.T) {
+	d := DryccIfy("Test")
+	if strings.Contains(d, "Drycc1") {
 		t.Errorf("Failed to compile template")
 	}
 	if !strings.Contains(d, "Test") {
@@ -57,8 +57,8 @@ func TestDeisIfy(t *testing.T) {
 
 func TestLogo(t *testing.T) {
 	l := Logo()
-	if l != Colors["Deis"] {
-		t.Errorf("Expected \n%s\n, Got\n%s\n", Colors["Deis"], Logo())
+	if l != Colors["Drycc"] {
+		t.Errorf("Expected \n%s\n, Got\n%s\n", Colors["Drycc"], Logo())
 	}
 }
 

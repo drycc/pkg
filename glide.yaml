@@ -1,4 +1,4 @@
-package: github.com/teamhephy/pkg
+package: github.com/drycc/pkg
 ignore:
 - appengine
 import:

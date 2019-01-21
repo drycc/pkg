@@ -92,7 +92,7 @@ func RemoveMemberByName(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo
 // 	- namespace (string): The namespace we're operating in
 func RemoveStaleMembers(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Interrupt) {
 	eclient := p.Get("client", nil).(client.Client)
-	label := p.Get("label", "name=deis-etcd-1").(string)
+	label := p.Get("label", "name=drycc-etcd-1").(string)
 	ns := p.Get("namespace", "default").(string)
 
 	// Should probably pass in the client from the context.

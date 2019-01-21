@@ -53,14 +53,14 @@ var Colors = map[string]string{
 	"HiPurple":    "\033[35m",
 	"HiCyan":      "\033[36m",
 	"HiWhite":     "\033[37m",
-	"Deis1":       "\033[31m● \033[34m▴ \033[32m■\033[0m",
-	"Deis2":       "\033[32m■ \033[31m● \033[34m▴\033[0m",
-	"Deis3":       "\033[34m▴ \033[32m■ \033[31m●\033[0m",
-	"Deis":        "\033[31m● \033[34m▴ \033[32m■\n\033[32m■ \033[31m● \033[34m▴\n\033[34m▴ \033[32m■ \033[31m●\n",
+	"Drycc1":       "\033[31m● \033[34m▴ \033[32m■\033[0m",
+	"Drycc2":       "\033[32m■ \033[31m● \033[34m▴\033[0m",
+	"Drycc3":       "\033[34m▴ \033[32m■ \033[31m●\033[0m",
+	"Drycc":        "\033[31m● \033[34m▴ \033[32m■\n\033[32m■ \033[31m● \033[34m▴\n\033[34m▴ \033[32m■ \033[31m●\n",
 }
 
-// DeisIfy returns a pretty-printed deis logo along with the corresponding message
-func DeisIfy(msg string) string {
+// DryccIfy returns a pretty-printed drycc logo along with the corresponding message
+func DryccIfy(msg string) string {
 	var t = struct {
 		Msg string
 		C   map[string]string
@@ -68,15 +68,15 @@ func DeisIfy(msg string) string {
 		Msg: msg,
 		C:   Colors,
 	}
-	tpl := "{{.C.Deis1}}\n{{.C.Deis2}} {{.Msg}}\n{{.C.Deis3}}\n"
+	tpl := "{{.C.Drycc1}}\n{{.C.Drycc2}} {{.Msg}}\n{{.C.Drycc3}}\n"
 	var buf bytes.Buffer
-	template.Must(template.New("deis").Parse(tpl)).Execute(&buf, t)
+	template.Must(template.New("drycc").Parse(tpl)).Execute(&buf, t)
 	return buf.String()
 }
 
-// Logo returns a colorized Deis logo with no space for text.
+// Logo returns a colorized Drycc logo with no space for text.
 func Logo() string {
-	return Colorize("{{.Deis}}")
+	return Colorize("{{.Drycc}}")
 }
 
 // NoColor strips colors from the template.
