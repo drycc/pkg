@@ -9,11 +9,11 @@ several Drycc projects.
 
 ## Usage
 
-Add this project to your `vendor/` directory using Godeps or
-[glide](https://github.com/Masterminds/glide):
+Add this project to your `vendor/` directory using
+[dep](https://github.com/golang/dep):
 
 ```
-$ glide get --import github.com/drycc/pkg
+$ dep ensure -add github.com/drycc/pkg add a dependency to the project
 ```
 
-(The `--import` flag will get any additional dependencies.)
+(The `-add` flag will add a dependency to the project.)

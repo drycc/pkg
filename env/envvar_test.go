@@ -92,11 +92,11 @@ func TestSet(t *testing.T) {
 func TestGetInterpolation(t *testing.T) {
 	reg, router, cxt := cookoo.Cookoo()
 
-	os.Setenv("TEST_ENV", "is")
+	os.Setenv("TEST_ENV", "cc")
 
 	reg.Route("test", "Test route").
 		Does(Get, "res").
-		Using("TEST_ENV2").WithDefault("de$TEST_ENV")
+		Using("TEST_ENV2").WithDefault("dry$TEST_ENV")
 
 	if err := router.HandleRequest("test", cxt, true); err != nil {
 		t.Error(err)
