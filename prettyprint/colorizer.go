@@ -53,10 +53,10 @@ var Colors = map[string]string{
 	"HiPurple":    "\033[35m",
 	"HiCyan":      "\033[36m",
 	"HiWhite":     "\033[37m",
-	"Drycc1":       "\033[31m● \033[34m▴ \033[32m■\033[0m",
-	"Drycc2":       "\033[32m■ \033[31m● \033[34m▴\033[0m",
-	"Drycc3":       "\033[34m▴ \033[32m■ \033[31m●\033[0m",
-	"Drycc":        "\033[31m● \033[34m▴ \033[32m■\n\033[32m■ \033[31m● \033[34m▴\n\033[34m▴ \033[32m■ \033[31m●\n",
+	"Drycc1":      "\033[31m● \033[34m▴ \033[32m■\033[0m",
+	"Drycc2":      "\033[32m■ \033[31m● \033[34m▴\033[0m",
+	"Drycc3":      "\033[34m▴ \033[32m■ \033[31m●\033[0m",
+	"Drycc":       "\033[31m● \033[34m▴ \033[32m■\n\033[32m■ \033[31m● \033[34m▴\n\033[34m▴ \033[32m■ \033[31m●\n",
 }
 
 // DryccIfy returns a pretty-printed drycc logo along with the corresponding message
@@ -163,7 +163,7 @@ func Overwritef(msg string, args ...interface{}) string {
 	return Overwrite(fmt.Sprintf(msg, args...))
 }
 
-// PrettyTabs formats a map with with alligned keys and values.
+// PrettyTabs formats a map with with aligned keys and values.
 //
 // Example:
 // test := map[string]string {

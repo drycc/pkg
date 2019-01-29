@@ -7,6 +7,7 @@ import (
 )
 
 func TestStreamOuptutSuccess(t *testing.T) {
+
 	str := "abc\ndef\n"
 	src := strings.NewReader(str)
 	dest := bytes.NewBuffer(nil)
@@ -17,12 +18,12 @@ func TestStreamOuptutSuccess(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	destStr := string(dest.Bytes())
+	destStr := dest.String()
 	if destStr != str {
 		t.Fatalf("dest was [%s], expected [%s]", destStr, str)
 	}
 
-	outStr := string(out.Bytes())
+	outStr := out.String()
 	if outStr != str {
 		t.Fatalf("out was [%s], expected [%s]", outStr, str)
 	}

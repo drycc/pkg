@@ -1,4 +1,3 @@
-/* Package discovery contains utlities for Etcd discovery. */
 package discovery
 
 import (
@@ -8,10 +7,16 @@ import (
 	"github.com/Masterminds/cookoo"
 )
 
+// TokenFile for etcd
 var TokenFile = "/var/run/secrets/drycc/etcd/discovery/token"
 
+// ClusterDiscoveryURL for drycc
 const ClusterDiscoveryURL = "http://%s:%s/v2/keys/drycc/discovery/%s"
+
+// ClusterSizeKey for discovery
 const ClusterSizeKey = "drycc/discovery/%s/_config/size"
+
+// ClusterStatusKey for drycc
 const ClusterStatusKey = "drycc/status/%s/%s"
 
 // Token reads the discovery token from the TokenFile and returns it.

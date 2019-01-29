@@ -14,7 +14,10 @@ import (
 // RunCommandWithStdoutStderr execs a command and returns its output.
 func RunCommandWithStdoutStderr(cmd *exec.Cmd) (bytes.Buffer, bytes.Buffer, error) {
 	var stdout, stderr bytes.Buffer
-	stderrPipe, err := cmd.StderrPipe()
+	stderrPipe, _err := cmd.StderrPipe()
+	if _err != nil {
+		fmt.Println("error at io pipes")
+	}
 	stdoutPipe, err := cmd.StdoutPipe()
 
 	cmd.Env = os.Environ()

@@ -65,6 +65,7 @@ func SimpleGet(cli client.Client, key string, recursive bool) (*client.Response,
 	return k.Get(dctx(), key, &client.GetOptions{Recursive: recursive})
 }
 
+// SimpleSet performs the common base-line set, using a default context.
 func SimpleSet(cli client.Client, key, value string, expires time.Duration) (*client.Response, error) {
 	k := client.NewKeysAPI(cli)
 	return k.Set(dctx(), key, value, &client.SetOptions{TTL: expires})
@@ -84,7 +85,7 @@ func SimpleSet(cli client.Client, key, value string, expires time.Duration) (*cl
 func Get(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Interrupt) {
 	cli, ok := p.Has("client")
 	if !ok {
-		return nil, errors.New("No Etcd client found.")
+		return nil, errors.New("no etcd client found")
 	}
 	ec := cli.(client.Client)
 	path := p.Get("path", "/").(string)
@@ -98,7 +99,7 @@ func Get(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Interrupt) {
 	}
 
 	if !res.Node.Dir {
-		return res, fmt.Errorf("Expected / to be a dir.")
+		return res, fmt.Errorf("expected / to be a dir")
 	}
 	return res, nil
 }
@@ -126,7 +127,7 @@ func IsRunning(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Interrup
 		time.Sleep(250 * time.Millisecond)
 	}
 	log.Errf(c, "Etcd is not answering after %d attempts.", count)
-	return false, &cookoo.FatalError{"Could not connect to Etcd."}
+	return false, &cookoo.FatalError{Message: "Could not connect to Etcd."}
 }
 
 // Set sets a value in etcd.
@@ -387,12 +388,12 @@ func MakeDir(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Interrupt)
 	k := client.NewKeysAPI(cli)
 
 	if len(name) == 0 {
-		return false, errors.New("Expected directory name to be more than zero characters.")
+		return false, errors.New("expected directory name to be more than zero characters")
 	}
 
 	res, err := k.Set(dctx(), name, "", &client.SetOptions{TTL: ttl, Dir: true})
 	if err != nil {
-		return res, &cookoo.RecoverableError{err.Error()}
+		return res, &cookoo.RecoverableError{Message: err.Error()}
 	}
 
 	return res, nil

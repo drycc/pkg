@@ -7,8 +7,8 @@ import (
 	"github.com/Masterminds/cookoo"
 	"github.com/Masterminds/cookoo/log"
 	"github.com/coreos/etcd/client"
-	"k8s.io/apimachinery/pkg/labels"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 )
@@ -168,7 +168,7 @@ func RemoveStaleMembers(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo
 // Params:
 // 	client (client.Client): An etcd client.
 // Returns:
-//  string representation of the list, also put into the enviornment.
+//  string representation of the list, also put into the environment.
 func GetInitialCluster(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Interrupt) {
 	cli := p.Get("client", nil).(client.Client)
 	mem := client.NewMembersAPI(cli)

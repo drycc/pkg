@@ -26,9 +26,11 @@ all: build test
 
 build:
 	${DEV_ENV_CMD} go build ${PKG_DIRS}
-
-test:
+test-cover:
+	${DEV_ENV_CMD} test-cover.sh
+test-style:
+	${DEV_ENV_CMD} lint
+test: build test-style test-cover
 	${DEV_ENV_CMD} go test ${PKG_DIRS}
-
 
 .PHONY: all build test

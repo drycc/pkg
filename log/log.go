@@ -32,10 +32,17 @@ var (
 )
 
 const (
+	// DebugPrefix for log
 	DebugPrefix = "[DEBUG]"
+
+	// ErrorPrefix for log
 	ErrorPrefix = "[ERROR]"
-	WarnPrefix  = "[WARN]"
-	InfoPrefix  = "--->"
+
+	// WarnPrefix for log
+	WarnPrefix = "[WARN]"
+
+	// InfoPrefix for log
+	InfoPrefix = "--->"
 )
 
 // Logger is the base logging struct from which all logging functionality stems

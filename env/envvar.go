@@ -55,7 +55,7 @@ func Get(c cookoo.Context, params *cookoo.Params) (interface{}, cookoo.Interrupt
 // 	- content (string): The given string to expand.
 //
 // Returns:
-//  - The expanded string. This expands against the os environemnt (os.ExpandEnv).
+//  - The expanded string. This expands against the os environment (os.ExpandEnv).
 func Expand(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Interrupt) {
 	s := p.Get("content", "").(string)
 
