@@ -3,7 +3,7 @@
 # - Docker image name
 # - Kubernetes service, rc, pod, secret, volume names
 REPO_PATH := github.com/drycc/pkg
-DEV_ENV_IMAGE := quay.io/drycc/go-dev:v0.22.0
+DEV_ENV_IMAGE := golang:1.14
 DEV_ENV_WORK_DIR := /go/src/${REPO_PATH}
 
 # Enable vendor/ directory support.
@@ -20,17 +20,13 @@ PKG_DIRS := ./...
 DEV_ENV_CMD := docker run --rm -v ${CURDIR}:${DEV_ENV_WORK_DIR} -w ${DEV_ENV_WORK_DIR} ${DEV_ENV_IMAGE}
 
 bootstrap:
-	${DEV_ENV_CMD} dep ensure
+	${DEV_ENV_CMD} go mod vendor
 
 all: build test
 
 build:
 	${DEV_ENV_CMD} go build ${PKG_DIRS}
-test-cover:
-	${DEV_ENV_CMD} test-cover.sh
-test-style:
-	${DEV_ENV_CMD} lint
-test: build test-style test-cover
+test: build
 	${DEV_ENV_CMD} go test ${PKG_DIRS}
 
 .PHONY: all build test
