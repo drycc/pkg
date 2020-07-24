@@ -3,7 +3,7 @@ package etcd
 import (
 	"os"
 	"strings"
-
+	"context"
 	"github.com/Masterminds/cookoo"
 	"github.com/Masterminds/cookoo/log"
 	"github.com/coreos/etcd/client"
@@ -129,7 +129,7 @@ func RemoveStaleMembers(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo
 		log.Errf(c, "Selector failed to parse: %s", err)
 		return nil, err
 	}
-	pods, err := clientset.CoreV1().Pods(ns).List(metav1.ListOptions{LabelSelector: labelSelector.String()})
+	pods, err := clientset.CoreV1().Pods(ns).List(context.TODO(), metav1.ListOptions{LabelSelector: labelSelector.String()})
 	if err != nil {
 		return nil, err
 	}
