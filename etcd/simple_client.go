@@ -5,10 +5,11 @@ package etcd
 // as soon as we can purge builder.
 
 import (
-	"time"
+	"fmt"
+	//"time"
 
 	"github.com/Masterminds/cookoo"
-	"github.com/coreos/etcd/client"
+	"github.com/coreos/etcd/clientv3"
 )
 
 // Getter describes the Get behavior of an Etcd client.
@@ -17,19 +18,19 @@ import (
 //
 // We use an interface because it is more testable.
 type Getter interface {
-	Get(string, bool, bool) (*client.Response, error)
+	Get(string, bool, bool) (*clientv3.GetResponse, error)
 }
 
 // DirCreator describes etcd's CreateDir behavior.
 //
 // Usually you will want to use go-etcd/etcd.Client to satisfy this.
-type DirCreator interface {
-	CreateDir(string, uint64) (*client.Response, error)
-}
+//type DirCreator interface {
+//	CreateDir(string, uint64) (*client.Response, error)
+//}
 
 // Setter sets a value in Etcd.
 type Setter interface {
-	Set(string, string, uint64) (*client.Response, error)
+	Set(string, string, uint64) (*clientv3.PutResponse, error)
 }
 
 // GetterSetter performs get and set operations.
@@ -56,7 +57,7 @@ func CreateSimpleClient(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo
 	}
 
 	return &SimpleEtcdClient{
-		realClient: r.(client.Client),
+		realClient: r.(clientv3.Client),
 	}, nil
 }
 
@@ -64,41 +65,59 @@ func CreateSimpleClient(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo
 //
 // DO NOT USE for new code. Instead, use NewClient().
 func NewSimpleClient(hosts []string) (*SimpleEtcdClient, error) {
-	cfg := client.Config{
+	cfg := clientv3.Config{
 		Endpoints: hosts,
 	}
 
-	r, err := client.New(cfg)
+	r, err := clientv3.New(cfg)
 	if err != nil {
 		return nil, err
 	}
 
 	return &SimpleEtcdClient{
-		realClient: r,
+		realClient: *r,
 	}, nil
 }
 
 // SimpleEtcdClient provides an interface compatible with the old Etcd client.
 type SimpleEtcdClient struct {
-	realClient client.Client
+	realClient clientv3.Client
 }
 
-// Get client.Response
-func (c *SimpleEtcdClient) Get(key string, sort bool, rec bool) (*client.Response, error) {
-	k := client.NewKeysAPI(c.realClient)
-	return k.Get(dctx(), key, &client.GetOptions{Sort: sort, Recursive: rec})
+// Get clientv3.GetResponse
+func (c *SimpleEtcdClient) Get(key string, sort bool, rec bool) (*clientv3.GetResponse, error) {
+	k := clientv3.NewKV(&c.realClient)
+	if rec {
+		return k.Get(dctx(), key, clientv3.WithPrefix())
+	} else {
+		return k.Get(dctx(), key)
+	}
+
 }
 
-// Set client.Response
-func (c *SimpleEtcdClient) Set(key, val string, ttl uint64) (*client.Response, error) {
-	k := client.NewKeysAPI(c.realClient)
+// Set clientv3.GetResponse
+func (c *SimpleEtcdClient) Set(key, val string, ttl uint64) (*clientv3.PutResponse, error) {
+	l := clientv3.Lease(&c.realClient)
+	k := clientv3.NewKV(&c.realClient)
 	// We're banking on people not using really uge ttls. In the code base, the
 	// highest is only a few hundred.
-	return k.Set(dctx(), key, val, &client.SetOptions{TTL: time.Duration(ttl) * time.Second})
+	if ttl > 0 {
+		leaseGrantResp, err := l.Grant(dctx(), int64(ttl))
+		if err != nil {
+			fmt.Println(err)
+			return nil, err
+		}
+		opts := []clientv3.OpOption{clientv3.WithLease(leaseGrantResp.ID)}
+		return k.Put(dctx(), key, val, opts...)
+	} else {
+		return k.Put(dctx(), key, val)
+	}
+
 }
 
+// clientv2
 // CreateDir by name
-func (c *SimpleEtcdClient) CreateDir(name string, ttl uint64) (*client.Response, error) {
-	k := client.NewKeysAPI(c.realClient)
-	return k.Set(dctx(), name, "", &client.SetOptions{TTL: time.Duration(ttl) * time.Second, Dir: true})
-}
+//func (c *SimpleEtcdClient) CreateDir(name string, ttl uint64) (*client.Response, error) {
+//	k := client.NewKeysAPI(c.realClient)
+//	return k.Set(dctx(), name, "", &client.SetOptions{TTL: time.Duration(ttl) * time.Second, Dir: true})
+//}
