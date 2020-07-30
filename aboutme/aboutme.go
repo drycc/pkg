@@ -16,6 +16,7 @@ import (
 	"net"
 	"os"
 	"strings"
+	"context"
 
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -175,7 +176,7 @@ func (me *Me) init() error {
 // loadPod loads a pod using the downward API.
 func (me *Me) loadPod() (*v1.Pod, string, error) {
 	ns := NamespaceFromEnv()
-	p, err := me.c.CoreV1().Pods(ns).Get(me.Name, metav1.GetOptions{})
+	p, err := me.c.CoreV1().Pods(ns).Get(context.TODO(), me.Name, metav1.GetOptions{})
 	return p, ns, err
 }
 
@@ -189,12 +190,12 @@ func (me *Me) findPodInNamespaces(selector string) (*v1.Pod, string, error) {
 	// Get the drycc namespace. If it does not exist, get the default namespce.
 	s, err := labels.Parse(selector)
 	if err == nil {
-		ns, err := me.c.CoreV1().Namespaces().List(metav1.ListOptions{LabelSelector: s.String()})
+		ns, err := me.c.CoreV1().Namespaces().List(context.TODO(), metav1.ListOptions{LabelSelector: s.String()})
 		if err != nil {
 			return nil, "default", err
 		}
 		for _, n := range ns.Items {
-			p, err := me.c.CoreV1().Pods(n.Name).Get(me.Name, metav1.GetOptions{})
+			p, err := me.c.CoreV1().Pods(n.Name).Get(context.TODO(), me.Name, metav1.GetOptions{})
 
 			// If there is no error, we got a matching pod.
 			if err == nil {
@@ -204,7 +205,7 @@ func (me *Me) findPodInNamespaces(selector string) (*v1.Pod, string, error) {
 	}
 
 	// If we get here, it's really the last ditch.
-	p, err := me.c.CoreV1().Pods("default").Get(me.Name, metav1.GetOptions{})
+	p, err := me.c.CoreV1().Pods("default").Get(context.TODO(), me.Name, metav1.GetOptions{})
 	return p, "default", err
 }
 
