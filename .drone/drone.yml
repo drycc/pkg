@@ -1,0 +1,42 @@
+kind: pipeline
+type: docker
+name: linux-amd64
+
+platform:
+  arch: amd64
+  os: linux
+
+steps:
+- name: test
+  image: docker.io/drycc/go-dev
+  pull: if-not-exists
+  privileged: true
+  commands:
+    - make bootstrap test
+  environment:
+    VERSION: ${DRONE_TAG:-latest}-linux-amd64
+    DEV_REGISTRY: ${DEV_REGISTRY:-docker.io}
+    DRYCC_REGISTRY: ${DRYCC_REGISTRY:-docker.io}
+  when:
+    event:
+    - push
+    - tag
+    - pull_request
+
+- name: codecov
+  image: docker.io/drycc/go-dev
+  pull: if-not-exists
+  commands:
+  - curl -s https://codecov.io/bash | bash
+  environment:
+    CODECOV_TOKEN:
+      from_secret: codecov_token
+  when:
+    status:
+    - success
+
+trigger:
+  event:
+  - push
+  - tag
+  - pull_request
