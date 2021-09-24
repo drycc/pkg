@@ -28,7 +28,7 @@ build:
 	${DEV_ENV_CMD} go build ${PKG_DIRS}
 
 test: build test-style
-	${DEV_ENV_CMD} go test ${PKG_DIRS}
+	${DEV_ENV_CMD} go test -race -cover -coverprofile=coverage.txt -covermode=atomic ${PKG_DIRS}
 
 test-style: bootstrap
 	${DEV_ENV_CMD} lint --deadline
