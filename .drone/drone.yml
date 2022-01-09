@@ -1,5 +1,5 @@
 kind: pipeline
-type: docker
+type: exec
 name: linux-amd64
 
 platform:
@@ -8,9 +8,6 @@ platform:
 
 steps:
 - name: test
-  image: docker.io/drycc/go-dev
-  pull: always
-  privileged: true
   commands:
   - make bootstrap test
   environment:
@@ -22,13 +19,8 @@ steps:
     - push
     - tag
     - pull_request
-  volumes:
-  - name: image_registries
-    path: /etc/containers/registries.conf
 
 - name: codecov
-  image: docker.io/drycc/go-dev
-  pull: always
   commands:
   - curl -s https://codecov.io/bash | bash
   environment:
@@ -37,14 +29,3 @@ steps:
   when:
     status:
     - success
-
-trigger:
-  event:
-  - push
-  - tag
-  - pull_request
-
-volumes:
-- name: image_registries
-  host:
-    path: /etc/containers/registries.conf
