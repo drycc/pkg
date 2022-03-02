@@ -4,7 +4,7 @@
 # - Kubernetes service, rc, pod, secret, volume names
 REPO_PATH := github.com/drycc/pkg
 DEV_ENV_IMAGE := drycc/go-dev
-DEV_ENV_WORK_DIR := /go/src/${REPO_PATH}
+DEV_ENV_WORK_DIR := /opt/drycc/go/src/${REPO_PATH}
 
 # Enable vendor/ directory support.
 export GO15VENDOREXPERIMENT=1
