@@ -9,11 +9,16 @@ platform:
 steps:
 - name: test
   commands:
+  - mkdir -p $HOMEPATH/.docker; echo $IMAGE_PULL_SECRETS > $HOMEPATH/.docker/config.json
   - make bootstrap test
   environment:
     VERSION: ${DRONE_TAG:-latest}-linux-amd64
-    DEV_REGISTRY: ${DEV_REGISTRY:-docker.io}
-    DRYCC_REGISTRY: ${DRYCC_REGISTRY:-docker.io}
+    DEV_REGISTRY:
+      from_secret: dev_registry
+    DRYCC_REGISTRY:
+      from_secret: drycc_registry
+    IMAGE_PULL_SECRETS:
+      from_secret: container_pull_secrets
   when:
     event:
     - push
