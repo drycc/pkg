@@ -1,10 +1,10 @@
 module github.com/drycc/pkg
 
-go 1.17
+go 1.18
 
 require (
 	github.com/Masterminds/cookoo v1.3.0
-	github.com/arschles/assert v1.0.1-0.20191213221312-71f210f9375a
+	github.com/stretchr/testify v1.8.0
 	k8s.io/api v0.22.0
 	k8s.io/apimachinery v0.22.0
 	k8s.io/client-go v0.22.0
@@ -21,6 +21,7 @@ require (
 	github.com/json-iterator/go v1.1.11 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	golang.org/x/net v0.0.0-20210520170846-37e1c6afe023 // indirect
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d // indirect
 	golang.org/x/sys v0.0.0-20210616094352-59db8d763f22 // indirect
@@ -31,7 +32,7 @@ require (
 	google.golang.org/protobuf v1.26.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/klog/v2 v2.9.0 // indirect
 	k8s.io/utils v0.0.0-20210707171843-4b05e18ac7d9 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.1.2 // indirect
