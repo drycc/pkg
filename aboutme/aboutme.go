@@ -2,12 +2,12 @@
 //
 // Typical usage is to let the Pod auto-detect information about itself:
 //
-//	my, err := aboutme.FromEnv()
-//  if err != nil {
-// 		// Error connecting to tke k8s API server
-// 	}
+//		my, err := aboutme.FromEnv()
+//	 if err != nil {
+//			// Error connecting to tke k8s API server
+//		}
 //
-// 	fmt.Printf("My Pod Name is %s", my.Name)
+//		fmt.Printf("My Pod Name is %s", my.Name)
 package aboutme
 
 import (
@@ -102,7 +102,7 @@ func NameFromEnv() string {
 	return n
 }
 
-//NamespaceFromEnv attempts to get the namespace from the downward API.
+// NamespaceFromEnv attempts to get the namespace from the downward API.
 //
 // If EnvNamespace is not set, or if the name is not recovered from the
 // environment, then the DefaultNamespace is used.
@@ -119,9 +119,9 @@ func NamespaceFromEnv() string {
 // The properties of Me are placed into the environment according to the
 // following rules:
 //
-// 	- In general, all variables are prefaced with MY_ (MY_IP, MY_NAMESPACE)
-// 	- Labels become MY_LABEL_[NAME]=[value]
-// 	- Annotations become MY_ANNOTATION_[NAME] = [value]
+//   - In general, all variables are prefaced with MY_ (MY_IP, MY_NAMESPACE)
+//   - Labels become MY_LABEL_[NAME]=[value]
+//   - Annotations become MY_ANNOTATION_[NAME] = [value]
 func (me *Me) ShuntEnv() {
 	env := map[string]string{
 		"MY_APISERVER": me.APIServer,
@@ -180,13 +180,13 @@ func (me *Me) loadPod() (*v1.Pod, string, error) {
 	return p, ns, err
 }
 
-// findPodInNamespaces searches relevant namespaces for this pod.
+// FindPodInNamespaces searches relevant namespaces for this pod.
 //
 // It returns a PodInterface for working with the pod, a namespace name as a
 // string, and an error if something goes wrong.
 //
 // The selector must be a label selector.
-func (me *Me) findPodInNamespaces(selector string) (*v1.Pod, string, error) {
+func (me *Me) FindPodInNamespaces(selector string) (*v1.Pod, string, error) {
 	// Get the drycc namespace. If it does not exist, get the default namespce.
 	s, err := labels.Parse(selector)
 	if err == nil {

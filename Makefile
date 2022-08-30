@@ -3,7 +3,7 @@
 # - Docker image name
 # - Kubernetes service, rc, pod, secret, volume names
 REPO_PATH := github.com/drycc/pkg
-DEV_ENV_IMAGE := drycc/go-dev
+DEV_ENV_IMAGE := ${DEV_REGISTRY}/drycc/go-dev
 DEV_ENV_WORK_DIR := /opt/drycc/go/src/${REPO_PATH}
 
 # Enable vendor/ directory support.
@@ -31,6 +31,6 @@ test: build test-style
 	${DEV_ENV_CMD} go test -race -cover -coverprofile=coverage.txt -covermode=atomic ${PKG_DIRS}
 
 test-style: bootstrap
-	${DEV_ENV_CMD} lint --deadline
+	${DEV_ENV_CMD} lint
 
 .PHONY: all build test

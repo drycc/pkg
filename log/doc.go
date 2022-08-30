@@ -4,15 +4,15 @@
 //
 // Example usage of global functions:
 //
-//  import "github.com/drycc/pkg/log"
-//  log.Info("Hello Gophers!") // equivalent of log.DefaultLogger.Info("hello gophers!")
-//  log.Debug("log.DefaultLogger initializes with debug logs turned off, so you can't see me!")
-//  log.DefaultLogger.SetDebug(true)
-//  log.Debug("Now that we turned debug logs on, you can see me now!")
+//	import "github.com/drycc/pkg/log"
+//	log.Info("Hello Gophers!") // equivalent of log.DefaultLogger.Info("hello gophers!")
+//	log.Debug("log.DefaultLogger initializes with debug logs turned off, so you can't see me!")
+//	log.DefaultLogger.SetDebug(true)
+//	log.Debug("Now that we turned debug logs on, you can see me now!")
 //
 // Example usage of instantiating an individual logger:
 //
-//  // create a new logger that sends all stderr logs to /dev/null, and turns on debug logs
-//  logger := log.NewLogger(os.Stdout, iouitl.Discard, true)
-//  log.Debug("Hello Gophers!")
+//	// create a new logger that sends all stderr logs to /dev/null, and turns on debug logs
+//	logger := log.NewLogger(os.Stdout, iouitl.Discard, true)
+//	log.Debug("Hello Gophers!")
 package log

@@ -12,10 +12,10 @@ import (
 // Colors contains a map of the standard ANSI color codes.
 //
 // There are four variants:
-// 	- Bare color names (Red, Black) color the characters.
-// 	- Bold color names add bolding to the characters.
-// 	- Under color names add underlining to the characters.
-// 	- Hi color names add highlighting (background colors).
+//   - Bare color names (Red, Black) color the characters.
+//   - Bold color names add bolding to the characters.
+//   - Under color names add underlining to the characters.
+//   - Hi color names add highlighting (background colors).
 //
 // These can be used within `text/template` to provide colors. The convenience
 // function `Colorize()` provides this feature.
@@ -99,6 +99,7 @@ func NoColor(msg string) string {
 // well.
 //
 // Example:
+//
 //	Colorize("{{.Red}}ERROR:{{.Default}} Something happened.")
 func Colorize(msg string) string {
 	return colorize(msg, Colors)
@@ -111,6 +112,7 @@ func Colorize(msg string) string {
 //
 // Assuming `vars` contains a member named `Msg`, a template can be constructed
 // like this:
+//
 //	{{.C.Red}}Message:{{.C.Default}} .V.Msg
 func ColorizeVars(msg string, vars interface{}) string {
 	var t = struct {
@@ -140,8 +142,9 @@ func colorize(msg string, vars interface{}) string {
 // Overwrite sends a line that will be replaced by a subsequent overwrite.
 //
 // Example:
-// 	Overwrite("foo")
-// 	Overwrite("bar")
+//
+//	Overwrite("foo")
+//	Overwrite("bar")
 //
 // The above will print "foo" and then immediately replace it with "var".
 //
@@ -166,10 +169,11 @@ func Overwritef(msg string, args ...interface{}) string {
 // PrettyTabs formats a map with with aligned keys and values.
 //
 // Example:
-// test := map[string]string {
-//    "test": "testing",
-//    "foo": "bar",
-//  }
+//
+//	test := map[string]string {
+//	   "test": "testing",
+//	   "foo": "bar",
+//	 }
 //
 // Prettytabs(test, 5)
 //

@@ -14,10 +14,6 @@ type Time struct {
 	*time.Time
 }
 
-func (t *Time) format() string {
-	return t.Format(DryccDatetimeFormat)
-}
-
 // MarshalJSON implements the json.Marshaler interface.
 // The time is a quoted string in Drycc' datetime format.
 func (t *Time) MarshalJSON() ([]byte, error) {

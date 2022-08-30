@@ -12,7 +12,7 @@ import (
 //
 // Parameters passed in are of the form varname => defaultValue.
 //
-// 	r.Route("foo", "example").Does(envvar.Get).Using("HOME").WithDefault(".")
+//	r.Route("foo", "example").Does(envvar.Get).Using("HOME").WithDefault(".")
 //
 // As with all environment variables, the default value must be a string.
 //
@@ -52,10 +52,10 @@ func Get(c cookoo.Context, params *cookoo.Params) (interface{}, cookoo.Interrupt
 // Expand expands the environment variables in the given string and returns the result.
 //
 // Params:
-// 	- content (string): The given string to expand.
+//   - content (string): The given string to expand.
 //
 // Returns:
-//  - The expanded string. This expands against the os environment (os.ExpandEnv).
+//   - The expanded string. This expands against the os environment (os.ExpandEnv).
 func Expand(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Interrupt) {
 	s := p.Get("content", "").(string)
 
@@ -77,10 +77,13 @@ func Expand(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Interrupt) 
 // are retrieved from the underlying map.
 //
 // Params:
-//   accessed as map[string]string
+//
+//	accessed as map[string]string
+//
 // Returns:
-//   nothing, but inserts all name/value pairs into the context and the
-//   environment.
+//
+//	nothing, but inserts all name/value pairs into the context and the
+//	environment.
 func Set(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Interrupt) {
 	for name, def := range p.AsMap() {
 		// Assume Nil means unset the value.
