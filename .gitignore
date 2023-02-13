@@ -2,3 +2,4 @@ rootfs/bin/boot
 vendor/*
 coverage.txt
 .idea/*
+.vscode/*

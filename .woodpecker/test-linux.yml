@@ -1,0 +1,18 @@
+platform: linux/amd64
+
+labels:
+  type: exec
+
+pipeline:
+- name: test-linux
+  image: bash
+  commands:
+  - make bootstrap test
+  - curl -s https://codecov.io/bash | bash
+  secrets:
+  - dev_registry
+  - codecov_token
+  when:
+    event:
+    - push
+    - tag
