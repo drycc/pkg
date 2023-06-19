@@ -19,13 +19,13 @@ func getWriters() (io.Writer, *bytes.Buffer, io.Writer, *bytes.Buffer) {
 	return stdout, &out, stderr, &err
 }
 
-func TestMsg(t *testing.T) {
+func TestMsg(_ *testing.T) {
 	stdout, _, stderr, _ := getWriters()
 	lg := NewLogger(stdout, stderr, true)
 	lg.Msg("hello %s", world)
 }
 
-func TestErr(t *testing.T) {
+func TestErr(_ *testing.T) {
 	stdout, _, stderr, _ := getWriters()
 	lg := NewLogger(stdout, stderr, false)
 	lg.Err("hello %s", world)
