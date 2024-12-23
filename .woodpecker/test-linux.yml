@@ -8,9 +8,11 @@ steps:
   commands:
   - make bootstrap test
   - curl -s https://codecov.io/bash | bash
-  secrets:
-  - dev_registry
-  - codecov_token
+  environment:
+    DEV_REGISTRY:
+      from_secret: dev_registry
+    CODECOV_TOKEN:
+      from_secret: codecov_token
   when:
     event:
     - push
