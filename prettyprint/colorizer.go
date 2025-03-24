@@ -183,13 +183,13 @@ func Overwritef(msg string, args ...interface{}) string {
 // test     testing
 func PrettyTabs(msg map[string]string, spaces int) string {
 	// find the longest key so we know how much padding to use
-	max := 0
+	maxLength := 0
 	for key := range msg {
-		if len(key) > max {
-			max = len(key)
+		if len(key) > maxLength {
+			maxLength = len(key)
 		}
 	}
-	max += spaces
+	maxLength += spaces
 
 	// sort the map keys so we can print them alphabetically
 	var keys []string
@@ -200,7 +200,7 @@ func PrettyTabs(msg map[string]string, spaces int) string {
 
 	var output string
 	for _, k := range keys {
-		output += fmt.Sprintf("%s%s%s\n", k, strings.Repeat(" ", max-len(k)), msg[k])
+		output += fmt.Sprintf("%s%s%s\n", k, strings.Repeat(" ", maxLength-len(k)), msg[k])
 	}
 	return output
 }
