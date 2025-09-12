@@ -1,6 +1,6 @@
 module github.com/drycc/pkg
 
-go 1.24
+go 1.25
 
 require (
 	github.com/Masterminds/cookoo v1.3.0
