@@ -61,7 +61,7 @@ var Colors = map[string]string{
 
 // DryccIfy returns a pretty-printed drycc logo along with the corresponding message
 func DryccIfy(msg string) string {
-	var t = struct {
+	t := struct {
 		Msg string
 		C   map[string]string
 	}{
@@ -115,7 +115,7 @@ func Colorize(msg string) string {
 //
 //	{{.C.Red}}Message:{{.C.Default}} .V.Msg
 func ColorizeVars(msg string, vars interface{}) string {
-	var t = struct {
+	t := struct {
 		V interface{}
 		C map[string]string
 	}{
@@ -156,7 +156,6 @@ func Overwrite(msg string) string {
 	}
 	pad := 80 - len(msg)
 	return msg + strings.Repeat(" ", pad) + "\r"
-
 }
 
 // Overwritef formats a string and then returns an overwrite line.

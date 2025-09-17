@@ -9,9 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var (
-	world = "world"
-)
+var world = "world"
 
 func getWriters() (io.Writer, *bytes.Buffer, io.Writer, *bytes.Buffer) {
 	var out, err bytes.Buffer

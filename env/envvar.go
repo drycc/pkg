@@ -1,3 +1,5 @@
+// Package env provides functions for managing and manipulating environment variables
+// within the Drycc platform.
 package env
 
 import (
@@ -99,5 +101,4 @@ func Set(c cookoo.Context, p *cookoo.Params) (interface{}, cookoo.Interrupt) {
 		c.Put(name, val)
 	}
 	return true, nil
-
 }

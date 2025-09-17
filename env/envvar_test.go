@@ -84,7 +84,6 @@ func TestSet(t *testing.T) {
 			t.Errorf("Expected context var %s to be '%s', got '%s'", k, v, cv)
 		}
 	}
-
 }
 
 // TestGetInterpolation is a regression test to make sure that values are
